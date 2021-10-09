@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../core/store";
+import { toastr } from "../../services/Toast.service";
 
 type User = {
   username: string;
@@ -21,7 +22,6 @@ const USERS: User[] = [
 
 export interface IAuthState {
   isLogged: boolean;
-  message?: string;
   username?: string;
   fullName?: string;
 }
@@ -40,19 +40,28 @@ export const authSlice = createSlice({
           user.username === action.payload?.username &&
           user.password === action.payload?.password
       );
-      const newState: IAuthState = user
-        ? {
-            ...state,
-            isLogged: true,
-            username: user.username,
-            fullName: user.fullName,
-          }
-        : {
-            ...state,
-            isLogged: false,
-            message: "Tên tài khoản hoặc mật khẩu không đúng",
-          };
-      return newState;
+
+      if (user) {
+        const newState: IAuthState = {
+          ...state,
+          isLogged: true,
+          username: user.username,
+          fullName: user.fullName,
+        };
+        toastr.showToast(
+          "Đăng nhập thành công",
+          "success",
+          3000
+        );
+        return newState;
+      } else {
+        toastr.showToast(
+          "Tên tài khoản hoặc mật khẩu không đúng",
+          "error",
+          3000
+        );
+        return state;
+      }
     },
     register: (state, action: PayloadAction<User>) => {
       const user = USERS.find(

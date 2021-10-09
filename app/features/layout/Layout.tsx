@@ -4,10 +4,10 @@ import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerHeaderProps,
+  DrawerItem,
   DrawerItemList,
   DrawerNavigationOptions,
 } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
 import {
   Box,
   Center,
@@ -23,12 +23,13 @@ import {
 import React from "react";
 import offsetImage from "../../../assets/offset-bg.jpg";
 import { THEME_COLOR } from "../../utils/models/theme";
+import { makeid } from "../../utils/utils";
 import Counter from "../counter/Counter";
 import Home from "../home/Home";
 
-const Drawer = createDrawerNavigator();
+const DrawerNavigator = createDrawerNavigator();
 
-function NavBar(props: DrawerHeaderProps) {
+function Topbar(props: DrawerHeaderProps) {
   const onMenuPress = () => props.navigation.toggleDrawer();
   return (
     <>
@@ -84,7 +85,7 @@ function NavBar(props: DrawerHeaderProps) {
   );
 }
 
-function AppBar(props: DrawerContentComponentProps) {
+function OffsetMenuBar(props: DrawerContentComponentProps) {
   return (
     <DrawerContentScrollView
       contentContainerStyle={{
@@ -92,7 +93,7 @@ function AppBar(props: DrawerContentComponentProps) {
       }}
     >
       <Image
-        alt="IOT Agriculture"
+        alt="Agriculture"
         source={offsetImage}
         resizeMode="cover"
         resizeMethod="resize"
@@ -104,8 +105,8 @@ function AppBar(props: DrawerContentComponentProps) {
         <Heading color={THEME_COLOR.primary["500"]}>IOT Agriculture</Heading>
         <Divider mt="3" w="100%" />
       </Center>
-      <DrawerItemList {...props}>
-        {/* {props.state.routes.map((route) => (
+      {/* <DrawerItemList {...props}>
+        {props.state.routes.map((route) => (
           <DrawerItem
             activeTintColor="red"
             activeBackgroundColor="red"
@@ -117,19 +118,19 @@ function AppBar(props: DrawerContentComponentProps) {
               {route.name}
             </Text>
           </DrawerItem>
-        ))} */}
-      </DrawerItemList>
+        ))}
+      </DrawerItemList> */}
       <Divider mt="3" w="100%" />
     </DrawerContentScrollView>
   );
 }
 
-function DrawerNav() {
+function Layout() {
   const customDrawerContent = (props: DrawerContentComponentProps) => (
-    <AppBar {...props} />
+    <OffsetMenuBar {...props} />
   );
 
-  const headerComponent = (props: DrawerHeaderProps) => <NavBar {...props} />;
+  const headerComponent = (props: DrawerHeaderProps) => <Topbar {...props} />;
 
   const screenOptions: DrawerNavigationOptions = {
     header: headerComponent,
@@ -137,21 +138,21 @@ function DrawerNav() {
     drawerActiveTintColor: THEME_COLOR.white,
   };
   return (
-    <Drawer.Navigator
+    <DrawerNavigator.Navigator
       screenOptions={screenOptions}
       initialRouteName="Home"
       drawerContent={customDrawerContent}
     >
-      <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Counter" component={Counter} />
-      <Drawer.Screen name="Home1" component={Home} />
-      <Drawer.Screen name="Counter2" component={Counter} />
-      <Drawer.Screen name="Home3" component={Home} />
-      <Drawer.Screen name="Counter4" component={Counter} />
-      <Drawer.Screen name="Home5" component={Home} />
-      <Drawer.Screen name="Counter6" component={Counter} />
-    </Drawer.Navigator>
+      <DrawerNavigator.Screen name="Home" component={Home} />
+      <DrawerNavigator.Screen name="Counter" component={Counter} />
+      <DrawerNavigator.Screen name="Home1" component={Home} />
+      <DrawerNavigator.Screen name="Counter2" component={Counter} />
+      <DrawerNavigator.Screen name="Home3" component={Home} />
+      <DrawerNavigator.Screen name="Counter4" component={Counter} />
+      <DrawerNavigator.Screen name="Home5" component={Home} />
+      <DrawerNavigator.Screen name="Counter6" component={Counter} />
+    </DrawerNavigator.Navigator>
   );
 }
 
-export { DrawerNav };
+export { Layout };

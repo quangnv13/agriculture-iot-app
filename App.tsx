@@ -1,10 +1,46 @@
+import { NavigationContainer } from "@react-navigation/native";
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from "@react-navigation/stack";
 import { registerRootComponent } from "expo";
-import { extendTheme, NativeBaseProvider } from "native-base";
-import React from "react";
+import { extendTheme, NativeBaseProvider, Toast, ToastProvider, View } from "native-base";
+import React, { FC } from "react";
 import "react-native-gesture-handler";
 import { Provider } from "react-redux";
+import { useAppSelector } from "./app/core/hooks";
 import { store } from "./app/core/store";
-import { Main } from "./app/features/auth/Auth";
+import { AuthScreen } from "./app/features/auth/Auth";
+import { selectLoginStatus } from "./app/features/auth/authSlice";
+import { Layout } from "./app/features/layout/Layout";
+
+const StackNavigator = createStackNavigator();
+//Main
+const Main = () => {
+  const navigationOptions: StackNavigationOptions = {
+    headerShown: false,
+  };
+
+  const isLogged = useAppSelector(selectLoginStatus);
+
+  return (
+    <NavigationContainer>
+      <StackNavigator.Navigator screenOptions={navigationOptions}>
+        {isLogged ? (
+          <StackNavigator.Screen
+            name="Layout"
+            component={Layout}
+          ></StackNavigator.Screen>
+        ) : (
+          <StackNavigator.Screen
+            name="Auth"
+            component={AuthScreen}
+          ></StackNavigator.Screen>
+        )}
+      </StackNavigator.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default function App() {
   const theme = extendTheme({
