@@ -48,18 +48,10 @@ export const authSlice = createSlice({
           username: user.username,
           fullName: user.fullName,
         };
-        toastr.showToast(
-          "Đăng nhập thành công",
-          "success",
-          3000
-        );
+        toastr.showToast("Đăng nhập thành công", "success");
         return newState;
       } else {
-        toastr.showToast(
-          "Tên tài khoản hoặc mật khẩu không đúng",
-          "error",
-          3000
-        );
+        toastr.showToast("Tên tài khoản hoặc mật khẩu không đúng", "error");
         return state;
       }
     },

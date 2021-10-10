@@ -6,12 +6,12 @@ import {
   Heading,
   Icon,
   Input,
-  ScrollView,
+  KeyboardAvoidingView,
   Text,
   View,
 } from "native-base";
 import React, { FC, useState } from "react";
-import { Dimensions, ImageBackground } from "react-native";
+import { Dimensions, ImageBackground, Platform } from "react-native";
 import loginBgImage from "../../../assets/login-bg.jpeg";
 import { useAppDispatch } from "../../core/hooks";
 import { THEME_COLOR } from "../../utils/models/theme";
@@ -45,16 +45,16 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
     props.navigation.navigate("Register");
   };
   return (
-    <ScrollView
+    <KeyboardAvoidingView
       flex={1}
       backgroundColor="#ffffff"
-      showsVerticalScrollIndicator={false}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View flex={1} position="relative">
+      <View flex={0.9} position="relative">
         <ImageBackground
           source={loginBgImage}
           style={{
-            height: Dimensions.get("window").height / 2.5,
+            height: Dimensions.get("window").height / 2,
           }}
         ></ImageBackground>
         <View
@@ -180,7 +180,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
           </Button>
         </View>
       </View>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

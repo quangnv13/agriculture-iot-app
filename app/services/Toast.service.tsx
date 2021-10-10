@@ -6,7 +6,7 @@ export const toastr = {
   showToast: (
     message: string,
     type: "success" | "warning" | "error" | "info",
-    duration = 2500
+    duration = 3500
   ) => {
     Toast.show({
       duration,
@@ -39,6 +39,7 @@ export const toastr = {
               paddingVertical: 5,
               paddingHorizontal: 10,
               borderRadius: 5,
+              opacity: 0.7
             }}
           >
             <Text style={{ color: messageColor }}>{message}</Text>

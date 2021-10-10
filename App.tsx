@@ -4,7 +4,13 @@ import {
   StackNavigationOptions,
 } from "@react-navigation/stack";
 import { registerRootComponent } from "expo";
-import { extendTheme, NativeBaseProvider, Toast, ToastProvider, View } from "native-base";
+import {
+  extendTheme,
+  NativeBaseProvider,
+  Toast,
+  ToastProvider,
+  View,
+} from "native-base";
 import React, { FC } from "react";
 import "react-native-gesture-handler";
 import { Provider } from "react-redux";

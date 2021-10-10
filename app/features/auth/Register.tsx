@@ -84,7 +84,7 @@ const Register: FC<RegisterProps> = (props: RegisterProps) => {
             fontWeight="bold"
             textTransform="uppercase"
           >
-            Agriculture IOT
+            Smart IOT
           </Text>
         </View>
       </View>
