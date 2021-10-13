@@ -4,7 +4,6 @@ import {
   configureStore,
   ThunkAction,
 } from "@reduxjs/toolkit";
-import counterSliceReducer from "../features/counter/counterSlice";
 import authSliceReducer from "../features/auth/authSlice";
 import layoutSliceReducer from "../features/layout/layoutSlice";
 
@@ -12,7 +11,6 @@ export const store = configureStore({
   reducer: combineReducers({
     authSliceReducer,
     layoutSliceReducer,
-    counterSliceReducer,
   }),
 });
 

@@ -10,6 +10,7 @@ export const toastr = {
   ) => {
     Toast.show({
       duration,
+      placement: 'top',
       render: (props: { id: number; onClose: Function }) => {
         let messageColor = THEME_COLOR.success;
         let backgroundColor = THEME_COLOR.primary[200];

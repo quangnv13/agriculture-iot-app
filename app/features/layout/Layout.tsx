@@ -5,9 +5,10 @@ import {
   DrawerContentScrollView,
   DrawerHeaderProps,
   DrawerItemList,
-  DrawerNavigationOptions
+  DrawerNavigationOptions,
 } from "@react-navigation/drawer";
 import {
+  AlertDialog,
   Box,
   Center,
   Divider,
@@ -18,13 +19,15 @@ import {
   Image,
   StatusBar,
   Text,
-  View
+  View,
 } from "native-base";
 import React from "react";
+import { Alert } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import offsetImage from "../../../assets/offset-bg.jpg";
+import { useAppDispatch } from "../../core/hooks";
 import { THEME_COLOR } from "../../utils/models/theme";
-import Counter from "../counter/Counter";
+import { logout } from "../auth/authSlice";
 import { DeviceHub } from "../device-hub/DeviceHub";
 import Home from "../home/Home";
 
@@ -87,7 +90,7 @@ function Topbar(props: DrawerHeaderProps) {
 }
 
 function OffsetMenuBar(props: DrawerContentComponentProps) {
-  const focusedRouteName = props.state.routes[props.state.index].name;
+  const dispatch = useAppDispatch();
   return (
     <View flex={1}>
       <DrawerContentScrollView
@@ -112,7 +115,15 @@ function OffsetMenuBar(props: DrawerContentComponentProps) {
         <TouchableHighlight
           activeOpacity={1}
           underlayColor={THEME_COLOR.gray[100]}
-          onPress={() => alert("Pressed!")}
+          onPress={() => {
+            Alert.alert("Đăng xuất", "Bạn có chắc chắn!", [
+              {
+                text: "Hủy",
+                style: "cancel",
+              },
+              { text: "Đồng ý", onPress: () => dispatch(logout()) },
+            ]);
+          }}
         >
           <HStack ml={5} my={3} space={7}>
             <MaterialIcons
@@ -161,7 +172,7 @@ function Layout() {
           drawerIcon: (props) => (
             <MaterialIcons name="dashboard" {...props}></MaterialIcons>
           ),
-          headerTitle: 'Bảng điều khiển'
+          headerTitle: "Bảng điều khiển",
         }}
       />
       <DrawerNavigator.Screen
@@ -171,17 +182,17 @@ function Layout() {
           drawerIcon: (props) => (
             <MaterialIcons name="router" {...props}></MaterialIcons>
           ),
-          headerTitle: 'Quản lý bộ thiết bị'
+          headerTitle: "Quản lý bộ thiết bị",
         }}
       />
       <DrawerNavigator.Screen
         name="Cảm biến"
-        component={Counter}
+        component={Home}
         options={{
           drawerIcon: (props) => (
             <MaterialIcons name="link" {...props}></MaterialIcons>
           ),
-          headerTitle: 'Quản lý cảm biến'
+          headerTitle: "Quản lý cảm biến",
         }}
       />
       <DrawerNavigator.Screen
@@ -195,7 +206,7 @@ function Layout() {
       />
       <DrawerNavigator.Screen
         name="Đặt lịch"
-        component={Counter}
+        component={Home}
         options={{
           drawerIcon: (props) => (
             <MaterialIcons name="date-range" {...props}></MaterialIcons>

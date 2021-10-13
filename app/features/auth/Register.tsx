@@ -171,6 +171,7 @@ const Register: FC<RegisterProps> = (props: RegisterProps) => {
             isLoading={isLoading}
             isLoadingText="Đang đăng nhập"
             alignSelf="center"
+            variant="ghost"
             width="50%"
             mt="5"
             onPress={onLogin}

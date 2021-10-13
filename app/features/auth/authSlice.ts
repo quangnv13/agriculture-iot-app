@@ -78,10 +78,11 @@ export const authSlice = createSlice({
       }
       return { ...state, message: "Tên tài khoản đã tồn tại" };
     },
+    logout: (state) => ({ ...state, isLogged: false }),
   },
 });
 
-export const { login, register } = authSlice.actions;
+export const { login, register, logout } = authSlice.actions;
 export const selectLoginStatus = (state: RootState) =>
   state.authSliceReducer.isLogged;
 
