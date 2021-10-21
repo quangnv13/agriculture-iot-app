@@ -8,8 +8,11 @@ import {
   DrawerNavigationOptions,
 } from "@react-navigation/drawer";
 import {
+  Actionsheet,
   AlertDialog,
+  Badge,
   Box,
+  Card,
   Center,
   Divider,
   Heading,
@@ -17,24 +20,35 @@ import {
   Icon,
   IconButton,
   Image,
+  ScrollView,
   StatusBar,
   Text,
   View,
+  VStack,
 } from "native-base";
-import React from "react";
-import { Alert } from "react-native";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import { Alert, Keyboard } from "react-native";
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import offsetImage from "../../../assets/offset-bg.jpg";
 import { useAppDispatch } from "../../core/hooks";
+import { toastr } from "../../services/Toast.service";
 import { THEME_COLOR } from "../../utils/models/theme";
 import { logout } from "../auth/authSlice";
+import { CalendarScreen } from "../calendar/Calendar";
+import { Conectivity } from "../conectivity/Connectivity";
 import { DeviceHub } from "../device-hub/DeviceHub";
 import Home from "../home/Home";
+import { Sensor } from "../sensor/Sensor";
+import { Setting } from "../setting/Setting";
 
 const DrawerNavigator = createDrawerNavigator();
 
 function Topbar(props: DrawerHeaderProps) {
-  const onMenuPress = () => props.navigation.toggleDrawer();
+  const [isOpenNotify, setIsOpenNotify] = useState(false);
+  const onMenuPress = () => props.navigation.toggleDrawer(); Keyboard.dismiss();
   return (
     <>
       <StatusBar
@@ -83,8 +97,298 @@ function Topbar(props: DrawerHeaderProps) {
               />
             }
           />
+          <TouchableOpacity onPress={() => setIsOpenNotify(!isOpenNotify)}>
+            <IconButton
+              icon={
+                <Icon
+                  as={<MaterialIcons name="notifications" />}
+                  size="sm"
+                  color="white"
+                />
+              }
+            ></IconButton>
+            <Box
+              width="5"
+              height="5"
+              position="absolute"
+              backgroundColor="red.500"
+              justifyContent="center"
+              alignItems="center"
+              rounded="50px"
+              top="-0.5"
+              right="0.3"
+              _text={{
+                fontSize: 10,
+              }}
+            >
+              10
+            </Box>
+          </TouchableOpacity>
         </HStack>
       </HStack>
+
+      <Actionsheet
+        isOpen={isOpenNotify}
+        onClose={() => setIsOpenNotify(!isOpenNotify)}
+        style={{
+          height: "90%",
+          marginTop: "20%",
+          borderTopStartRadius: 10,
+          borderTopEndRadius: 10,
+          backgroundColor: THEME_COLOR.white,
+        }}
+      >
+        <HStack width="100%" flex={0.1}>
+          <Heading mt={4} pl={3} fontSize={20} flex={1} textAlign="left">
+            Thông báo
+          </Heading>
+          <TouchableOpacity
+            style={{ position: "relative", top: 10, right: 8 }}
+            onPress={() => setIsOpenNotify(false)}
+          >
+            <MaterialIcons
+              color={THEME_COLOR.gray[500]}
+              name="close"
+              size={30}
+            ></MaterialIcons>
+          </TouchableOpacity>
+        </HStack>
+        <ScrollView maxHeight="100%" width="100%" flex={1}>
+          <VStack
+            my={1}
+            mx={1}
+            borderRadius={4}
+            p={2}
+            borderWidth="1"
+            borderColor="coolGray.300"
+          >
+            <HStack>
+              <Text flex={4} fontSize={17} color={THEME_COLOR.danger[600]}>
+                Cảnh báo vượt ngưỡng
+              </Text>
+              <Text flex={3} fontSize={17}>
+                10:09 21/10/2021
+              </Text>
+              <MaterialIcons
+                size={20}
+                color={THEME_COLOR.danger[500]}
+                name="warning"
+              ></MaterialIcons>
+            </HStack>
+            <Text>
+              Nhiệt độ đã vượt giá trị cấu hình: 27°C, nhiệt độ hiện tại đo
+              được: 32°C
+            </Text>
+          </VStack>
+          <VStack
+            mx={1}
+            my={1}
+            borderRadius={4}
+            p={2}
+            borderWidth="1"
+            borderColor="coolGray.300"
+          >
+            <HStack>
+              <Text flex={4} fontSize={17} color={THEME_COLOR.success}>
+                Đã về mức an toàn
+              </Text>
+              <Text flex={3} fontSize={17}>
+                10:09 21/10/2021
+              </Text>
+              <MaterialIcons
+                size={20}
+                color={THEME_COLOR.success}
+                name="check"
+              ></MaterialIcons>
+            </HStack>
+            <Text>
+              Nhiệt độ đã về phạm vi giá trị cấu hình: 27°C, nhiệt độ hiện tại
+              đo được: 26.8°C
+            </Text>
+          </VStack>
+          <VStack
+            mx={1}
+            my={1}
+            borderRadius={4}
+            p={2}
+            borderWidth="1"
+            borderColor="coolGray.300"
+          >
+            <HStack>
+              <Text flex={4} fontSize={17} color={THEME_COLOR.danger[600]}>
+                Cảnh báo vượt ngưỡng
+              </Text>
+              <Text flex={3} fontSize={17}>
+                10:09 21/10/2021
+              </Text>
+              <MaterialIcons
+                size={20}
+                color={THEME_COLOR.danger[500]}
+                name="warning"
+              ></MaterialIcons>
+            </HStack>
+            <Text>
+              Nhiệt độ đã vượt giá trị cấu hình: 27°C, nhiệt độ hiện tại đo
+              được: 32°C
+            </Text>
+          </VStack>
+          <VStack
+            mx={1}
+            my={1}
+            borderRadius={4}
+            p={2}
+            borderWidth="1"
+            borderColor="coolGray.300"
+          >
+            <HStack>
+              <Text flex={4} fontSize={17} color={THEME_COLOR.danger[600]}>
+                Bộ thiết bị 3 đã bị mất kết nối
+              </Text>
+              <Text flex={3} fontSize={17}>
+                10:09 21/10/2021
+              </Text>
+              <MaterialIcons
+                size={20}
+                color={THEME_COLOR.danger[500]}
+                name="warning"
+              ></MaterialIcons>
+            </HStack>
+            <Text>
+              Bộ thiết bị 3 đã bị mất kết nối! Vui lòng kiểm tra đường truyền hoặc liên hệ hỗ trợ
+            </Text>
+          </VStack>
+          <VStack
+            mx={1}
+            my={1}
+            borderRadius={4}
+            p={2}
+            borderWidth="1"
+            borderColor="coolGray.300"
+          >
+            <HStack>
+              <Text flex={4} fontSize={17} color={THEME_COLOR.success}>
+                Đã về mức an toàn
+              </Text>
+              <Text flex={3} fontSize={17}>
+                10:09 21/10/2021
+              </Text>
+              <MaterialIcons
+                size={20}
+                color={THEME_COLOR.success}
+                name="check"
+              ></MaterialIcons>
+            </HStack>
+            <Text>
+              Nhiệt độ đã về phạm vi giá trị cấu hình: 27°C, nhiệt độ hiện tại
+              đo được: 26.8°C
+            </Text>
+          </VStack>
+          <VStack
+            mx={1}
+            my={1}
+            borderRadius={4}
+            p={2}
+            borderWidth="1"
+            borderColor="coolGray.300"
+          >
+            <HStack>
+              <Text flex={4} fontSize={17} color={THEME_COLOR.danger[600]}>
+                Cảnh báo vượt ngưỡng
+              </Text>
+              <Text flex={3} fontSize={17}>
+                10:09 21/10/2021
+              </Text>
+              <MaterialIcons
+                size={20}
+                color={THEME_COLOR.danger[500]}
+                name="warning"
+              ></MaterialIcons>
+            </HStack>
+            <Text>
+              Nhiệt độ đã vượt giá trị cấu hình: 27°C, nhiệt độ hiện tại đo
+              được: 32°C
+            </Text>
+          </VStack>
+          <VStack
+            mx={1}
+            my={1}
+            borderRadius={4}
+            p={2}
+            borderWidth="1"
+            borderColor="coolGray.300"
+          >
+            <HStack>
+              <Text flex={4} fontSize={17} color={THEME_COLOR.danger[600]}>
+                Cảnh báo vượt ngưỡng
+              </Text>
+              <Text flex={3} fontSize={17}>
+                10:09 21/10/2021
+              </Text>
+              <MaterialIcons
+                size={20}
+                color={THEME_COLOR.danger[500]}
+                name="warning"
+              ></MaterialIcons>
+            </HStack>
+            <Text>
+              Nhiệt độ đã vượt giá trị cấu hình: 27°C, nhiệt độ hiện tại đo
+              được: 32°C
+            </Text>
+          </VStack>
+          <VStack
+            mx={1}
+            my={1}
+            borderRadius={4}
+            p={2}
+            borderWidth="1"
+            borderColor="coolGray.300"
+          >
+            <HStack>
+              <Text flex={4} fontSize={17} color={THEME_COLOR.danger[600]}>
+                Cảnh báo vượt ngưỡng
+              </Text>
+              <Text flex={3} fontSize={17}>
+                10:09 21/10/2021
+              </Text>
+              <MaterialIcons
+                size={20}
+                color={THEME_COLOR.danger[500]}
+                name="warning"
+              ></MaterialIcons>
+            </HStack>
+            <Text>
+              Nhiệt độ đã vượt giá trị cấu hình: 27°C, nhiệt độ hiện tại đo
+              được: 32°C
+            </Text>
+          </VStack>
+          <VStack
+            mx={1}
+            my={1}
+            borderRadius={4}
+            p={2}
+            borderWidth="1"
+            borderColor="coolGray.300"
+          >
+            <HStack>
+              <Text flex={4} fontSize={17} color={THEME_COLOR.danger[600]}>
+                Cảnh báo vượt ngưỡng
+              </Text>
+              <Text flex={3} fontSize={17}>
+                10:09 21/10/2021
+              </Text>
+              <MaterialIcons
+                size={20}
+                color={THEME_COLOR.danger[500]}
+                name="warning"
+              ></MaterialIcons>
+            </HStack>
+            <Text>
+              Nhiệt độ đã vượt giá trị cấu hình: 27°C, nhiệt độ hiện tại đo
+              được: 32°C
+            </Text>
+          </VStack>
+        </ScrollView>
+      </Actionsheet>
     </>
   );
 }
@@ -121,7 +425,13 @@ function OffsetMenuBar(props: DrawerContentComponentProps) {
                 text: "Hủy",
                 style: "cancel",
               },
-              { text: "Đồng ý", onPress: () => dispatch(logout()) },
+              {
+                text: "Đồng ý",
+                onPress: () => {
+                  dispatch(logout());
+                  toastr.showToast("Đăng xuất thành công!", "success");
+                },
+              },
             ]);
           }}
         >
@@ -187,7 +497,7 @@ function Layout() {
       />
       <DrawerNavigator.Screen
         name="Cảm biến"
-        component={Home}
+        component={Sensor}
         options={{
           drawerIcon: (props) => (
             <MaterialIcons name="link" {...props}></MaterialIcons>
@@ -197,29 +507,32 @@ function Layout() {
       />
       <DrawerNavigator.Screen
         name="Kết nối"
-        component={Home}
+        component={Conectivity}
         options={{
           drawerIcon: (props) => (
             <MaterialIcons name="device-hub" {...props}></MaterialIcons>
           ),
+          headerTitle: "Quản lý kết nối",
         }}
       />
       <DrawerNavigator.Screen
         name="Đặt lịch"
-        component={Home}
+        component={CalendarScreen}
         options={{
           drawerIcon: (props) => (
             <MaterialIcons name="date-range" {...props}></MaterialIcons>
           ),
+          headerTitle: "Đặt lịch",
         }}
       />
       <DrawerNavigator.Screen
-        name="Cài đặt"
-        component={Home}
+        name="Cài đặt cảnh báo"
+        component={Setting}
         options={{
           drawerIcon: (props) => (
             <MaterialIcons name="settings" {...props}></MaterialIcons>
           ),
+          headerTitle: "Cài đặt cảnh báo",
         }}
       />
     </DrawerNavigator.Navigator>

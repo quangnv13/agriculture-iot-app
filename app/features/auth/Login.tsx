@@ -94,7 +94,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
               fontWeight="bold"
               textTransform="uppercase"
             >
-              Agriculture
+              Smart iot
             </Text>
           </View>
         </View>

@@ -10,43 +10,8 @@ export const toastr = {
   ) => {
     Toast.show({
       duration,
-      placement: 'top',
-      render: (props: { id: number; onClose: Function }) => {
-        let messageColor = THEME_COLOR.success;
-        let backgroundColor = THEME_COLOR.primary[200];
-
-        switch (type) {
-          case "error":
-            messageColor = THEME_COLOR.white;
-            backgroundColor = THEME_COLOR.danger[500];
-            break;
-          case "info":
-            messageColor = THEME_COLOR.info[500];
-            break;
-          case "success":
-            messageColor = THEME_COLOR.white;
-            backgroundColor = THEME_COLOR.success;
-            break;
-          case "warning":
-            messageColor = THEME_COLOR.warning;
-            break;
-          default:
-            messageColor = THEME_COLOR.success;
-        }
-        return (
-          <View
-            style={{
-              backgroundColor,
-              paddingVertical: 5,
-              paddingHorizontal: 10,
-              borderRadius: 5,
-              opacity: 0.7
-            }}
-          >
-            <Text style={{ color: messageColor }}>{message}</Text>
-          </View>
-        );
-      },
+      placement: "top",
+      title: message,
     });
   },
 };

@@ -9,11 +9,17 @@ import {
   ScrollView,
   Text,
   View,
+  KeyboardAvoidingView,
 } from "native-base";
 import React, { FC, useState } from "react";
-import { Dimensions, ImageBackground } from "react-native";
+import { Dimensions, ImageBackground, Keyboard, Platform } from "react-native";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import loginBgImage from "../../../assets/login-bg.jpeg";
 import { useAppDispatch } from "../../core/hooks";
+import { toastr } from "../../services/Toast.service";
 import { THEME_COLOR } from "../../utils/models/theme";
 import { register } from "./authSlice";
 
@@ -39,14 +45,15 @@ const Register: FC<RegisterProps> = (props: RegisterProps) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      loginReducer(register({ username, password }));
+      props.navigation.navigate("Login");
+      toastr.showToast("Đăng ký thành công", "success");
     }, 1500);
   };
   return (
-    <ScrollView
+    <KeyboardAvoidingView
       flex={1}
       backgroundColor="#ffffff"
-      showsVerticalScrollIndicator={false}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View flex={1} position="relative">
         <ImageBackground
@@ -88,99 +95,88 @@ const Register: FC<RegisterProps> = (props: RegisterProps) => {
           </Text>
         </View>
       </View>
-      <View
-        style={{
-          width: "100%",
-          marginTop: -50,
-          borderTopLeftRadius: 40,
-          borderTopRightRadius: 40,
-          backgroundColor: "#ffffff",
-        }}
-      >
-        <View style={{ padding: 30 }}>
-          <Heading style={{ color: THEME_COLOR.primary[600] }}>
-            Đăng ký tài khoản mới
-          </Heading>
-          <View mt="10">
-            <Text fontSize="md">Tên tài khoản</Text>
-            <Input
-              fontSize="md"
-              InputLeftElement={
-                <Icon
-                  as={<MaterialIcons name="person" />}
-                  size={5}
-                  ml="2"
-                  color="muted.400"
-                />
-              }
-              placeholder="Nhập tên tài khoản"
-              onChangeText={onTextUsernameChange}
-            />
-            <Text fontSize="md" mt="4">
-              Mật khẩu
-            </Text>
-            <Input
-              fontSize="md"
-              type="password"
-              InputLeftElement={
-                <Icon
-                  as={<MaterialIcons name="lock" />}
-                  size={5}
-                  ml="2"
-                  color="muted.400"
-                />
-              }
-              InputRightElement={
-                <Icon
-                  as={<MaterialIcons name="visibility" />}
-                  size={5}
-                  mr="2"
-                  color="muted.400"
-                />
-              }
-              placeholder="Nhập mật khẩu"
-              onChangeText={onTextPasswordChange}
-            />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View
+          style={{
+            width: "100%",
+            marginTop: -50,
+            borderTopLeftRadius: 40,
+            borderTopRightRadius: 40,
+            backgroundColor: "#ffffff",
+          }}
+        >
+          <View style={{ padding: 30 }}>
+            <Heading style={{ color: THEME_COLOR.primary[600] }}>
+              Đăng ký tài khoản mới
+            </Heading>
+            <View mt="10">
+              <Text fontSize="md">Tên tài khoản</Text>
+              <Input
+                fontSize="md"
+                InputLeftElement={
+                  <Icon
+                    as={<MaterialIcons name="person" />}
+                    size={5}
+                    ml="2"
+                    color="muted.400"
+                  />
+                }
+                placeholder="Nhập tên tài khoản"
+                onChangeText={onTextUsernameChange}
+              />
+              <Text fontSize="md" mt="4">
+                Mật khẩu
+              </Text>
+              <Input
+                fontSize="md"
+                type="password"
+                InputLeftElement={
+                  <Icon
+                    as={<MaterialIcons name="lock" />}
+                    size={5}
+                    ml="2"
+                    color="muted.400"
+                  />
+                }
+                placeholder="Nhập mật khẩu"
+                onChangeText={onTextPasswordChange}
+              />
+              <Input
+                mt={2}
+                fontSize="md"
+                type="password"
+                InputLeftElement={
+                  <Icon
+                    as={<MaterialIcons name="lock" />}
+                    size={5}
+                    ml="2"
+                    color="muted.400"
+                  />
+                }
+                placeholder="Nhập lại mật khẩu"
+                onChangeText={onTextPasswordChange}
+              />
+            </View>
+            <TouchableOpacity onPress={onLogin}>
+              <Button
+                isLoading={isLoading}
+                isLoadingText="Đang thực hiện"
+                alignSelf="center"
+                width="50%"
+                mt="5"
+              >
+                Đăng ký
+              </Button>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
+              <Button alignSelf="center" variant="ghost" width="50%" mt="5">
+                Quay lại đăng nhập
+              </Button>
+            </TouchableOpacity>
           </View>
-          <View
-            mt="5"
-            style={{
-              height: 30,
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Checkbox value="rememberMe" isChecked>
-              Nhớ tài khoản
-            </Checkbox>
-            <Text style={{ display: "flex", justifyContent: "flex-end" }}>
-              Quên mật khẩu
-            </Text>
-          </View>
-          <Button
-            isLoading={isLoading}
-            isLoadingText="Đang đăng nhập"
-            alignSelf="center"
-            width="50%"
-            mt="5"
-            onPress={onLogin}
-          >
-            Đăng nhập
-          </Button>
-          <Button
-            isLoading={isLoading}
-            isLoadingText="Đang đăng nhập"
-            alignSelf="center"
-            variant="ghost"
-            width="50%"
-            mt="5"
-            onPress={onLogin}
-          >
-            Quay lại đăng nhập
-          </Button>
         </View>
-      </View>
-    </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

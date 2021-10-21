@@ -6,43 +6,23 @@ import {
   Heading,
   HStack,
   ScrollView,
-  Switch,
-  Text,
   View,
   VStack,
+  Text,
 } from "native-base";
-import React, { FC, useEffect } from "react";
-import { useAppDispatch } from "../../core/hooks";
+import React from "react";
 import { THEME_COLOR } from "../../utils/models/theme";
-import { setTopbarTitle } from "../layout/layoutSlice";
 
-type HomeProps = {};
-
-const Home: FC<HomeProps> = (props) => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(setTopbarTitle({ topbarTitle: "Bảng điều khiển" }));
-  });
+const Conectivity = () => {
   return (
     <ScrollView>
       <Center mt="4" p="2">
         <VStack space={4} w="100%">
           <VStack space={2.5} w="100%" pr={4}>
             <View flex={1} flexDirection="row">
-              <MaterialIcons
-                color={THEME_COLOR.primary[600]}
-                name="settings-remote"
-                size={25}
-              ></MaterialIcons>
-              <Heading flex={1} color={THEME_COLOR.primary[600]} size="md">
-                Bộ thiết bị 1
+              <Heading color={THEME_COLOR.primary[600]} size="md">
+                Bộ thiết bị 1 (Online)
               </Heading>
-              <HStack alignItems="center">
-                <Text bold mr={3}>
-                  Tự động
-                </Text>
-                <Switch></Switch>
-              </HStack>
             </View>
             <Divider />
             <HStack space={4}>
@@ -55,15 +35,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.danger[500]}
-                    name="device-thermostat"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Nhiệt độ</Text>
+                  <Text ml={2}>Cảm biến nhiệt độ</Text>
                 </View>
-                <Heading ml={2} color={THEME_COLOR.gray[600]}>
-                  24.5°C
+                <Heading ml={2} color={THEME_COLOR.primary[600]} fontSize={15}>
+                  Kết nối ổn định
                 </Heading>
               </Box>
               <Box
@@ -75,15 +50,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.yellow[500]}
-                    name="wb-sunny"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Ánh sáng</Text>
+                  <Text ml={2}>Cảm biến ánh sáng</Text>
                 </View>
-                <Heading ml={1} color={THEME_COLOR.gray[600]}>
-                  1000 Lux
+                <Heading ml={2} color={THEME_COLOR.primary[600]} fontSize={15}>
+                  Kết nối ổn định
                 </Heading>
               </Box>
             </HStack>
@@ -98,15 +68,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.blue[500]}
-                    name="opacity"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Độ ẩm không khí</Text>
+                  <Text ml={2}>Cảm biến độ ẩm không khí</Text>
                 </View>
-                <Heading ml={1} color={THEME_COLOR.gray[600]}>
-                  30%
+                <Heading ml={2} color={THEME_COLOR.yellow[600]} fontSize={15}>
+                  Không ổn định
                 </Heading>
               </Box>
               <Box
@@ -118,15 +83,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.darkBlue[700]}
-                    name="waves"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Độ ẩm đất</Text>
+                  <Text ml={2}>Cảm biến độ ẩm đất</Text>
                 </View>
-                <Heading ml={1} color={THEME_COLOR.gray[600]}>
-                  50%
+                <Heading ml={2} color={THEME_COLOR.danger[600]} fontSize={15}>
+                  Mất kết nối
                 </Heading>
               </Box>
             </HStack>
@@ -135,20 +95,9 @@ const Home: FC<HomeProps> = (props) => {
 
           <VStack space={2.5} w="100%" pr={4}>
             <View flex={1} flexDirection="row">
-              <MaterialIcons
-                color={THEME_COLOR.primary[600]}
-                name="settings-remote"
-                size={25}
-              ></MaterialIcons>
-              <Heading flex={1} color={THEME_COLOR.primary[600]} size="md">
-                Bộ thiết bị 2
+              <Heading color={THEME_COLOR.primary[600]} size="md">
+                Bộ thiết bị 2 (Online)
               </Heading>
-              <HStack alignItems="center">
-                <Text bold mr={3}>
-                  Tự động
-                </Text>
-                <Switch></Switch>
-              </HStack>
             </View>
             <Divider />
             <HStack space={4}>
@@ -161,15 +110,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.danger[500]}
-                    name="device-thermostat"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Nhiệt độ</Text>
+                  <Text ml={2}>Cảm biến nhiệt độ</Text>
                 </View>
-                <Heading ml={2} color={THEME_COLOR.gray[600]}>
-                  24.5°C
+                <Heading ml={2} color={THEME_COLOR.primary[600]} fontSize={15}>
+                  Kết nối ổn định
                 </Heading>
               </Box>
               <Box
@@ -181,15 +125,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.yellow[500]}
-                    name="wb-sunny"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Ánh sáng</Text>
+                  <Text ml={2}>Cảm biến ánh sáng</Text>
                 </View>
-                <Heading ml={1} color={THEME_COLOR.gray[600]}>
-                  1000 Lux
+                <Heading ml={2} color={THEME_COLOR.primary[600]} fontSize={15}>
+                  Kết nối ổn định
                 </Heading>
               </Box>
             </HStack>
@@ -204,15 +143,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.blue[500]}
-                    name="opacity"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Độ ẩm không khí</Text>
+                  <Text ml={2}>Cảm biến độ ẩm không khí</Text>
                 </View>
-                <Heading ml={1} color={THEME_COLOR.gray[600]}>
-                  25.6%
+                <Heading ml={2} color={THEME_COLOR.yellow[600]} fontSize={15}>
+                  Không ổn định
                 </Heading>
               </Box>
               <Box
@@ -224,15 +158,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.darkBlue[700]}
-                    name="waves"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Độ ẩm đất</Text>
+                  <Text ml={2}>Cảm biến độ ẩm đất</Text>
                 </View>
-                <Heading ml={1} color={THEME_COLOR.gray[600]}>
-                  65%
+                <Heading ml={2} color={THEME_COLOR.danger[600]} fontSize={15}>
+                  Mất kết nối
                 </Heading>
               </Box>
             </HStack>
@@ -241,20 +170,9 @@ const Home: FC<HomeProps> = (props) => {
 
           <VStack space={2.5} w="100%" pr={4}>
             <View flex={1} flexDirection="row">
-              <MaterialIcons
-                color={THEME_COLOR.primary[600]}
-                name="settings-remote"
-                size={25}
-              ></MaterialIcons>
-              <Heading flex={1} color={THEME_COLOR.primary[600]} size="md">
-                Bộ thiết bị 3
+              <Heading color={THEME_COLOR.danger[600]} size="md">
+                Bộ thiết bị 3 (Offline)
               </Heading>
-              <HStack alignItems="center">
-                <Text bold mr={3}>
-                  Tự động
-                </Text>
-                <Switch></Switch>
-              </HStack>
             </View>
             <Divider />
             <HStack space={4}>
@@ -267,15 +185,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.danger[500]}
-                    name="device-thermostat"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Nhiệt độ</Text>
+                  <Text ml={2}>Cảm biến nhiệt độ</Text>
                 </View>
-                <Heading ml={2} color={THEME_COLOR.gray[600]}>
-                  24.5°C
+                <Heading ml={2} color={THEME_COLOR.danger[600]} fontSize={15}>
+                  Mất kết nối
                 </Heading>
               </Box>
               <Box
@@ -287,15 +200,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.yellow[500]}
-                    name="wb-sunny"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Ánh sáng</Text>
+                  <Text ml={2}>Cảm biến ánh sáng</Text>
                 </View>
-                <Heading ml={1} color={THEME_COLOR.gray[600]}>
-                  1000 Lux
+                <Heading ml={2} color={THEME_COLOR.danger[600]} fontSize={15}>
+                  Mất kết nối
                 </Heading>
               </Box>
             </HStack>
@@ -310,15 +218,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.blue[500]}
-                    name="opacity"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Độ ẩm không khí</Text>
+                  <Text ml={2}>Cảm biến độ ẩm không khí</Text>
                 </View>
-                <Heading ml={1} color={THEME_COLOR.gray[600]}>
-                  15.5 %
+                <Heading ml={2} color={THEME_COLOR.danger[600]} fontSize={15}>
+                  Mất kết nối
                 </Heading>
               </Box>
               <Box
@@ -330,15 +233,10 @@ const Home: FC<HomeProps> = (props) => {
                 padding={2}
               >
                 <View flex={1} flexDirection="row" alignItems="center">
-                  <MaterialIcons
-                    color={THEME_COLOR.darkBlue[700]}
-                    name="waves"
-                    size={25}
-                  ></MaterialIcons>
-                  <Text ml={2}>Độ ẩm đất</Text>
+                  <Text ml={2}>Cảm biến độ ẩm đất</Text>
                 </View>
-                <Heading ml={1} color={THEME_COLOR.gray[600]}>
-                  40%
+                <Heading ml={2} color={THEME_COLOR.danger[600]} fontSize={15}>
+                  Mất kết nối
                 </Heading>
               </Box>
             </HStack>
@@ -350,4 +248,4 @@ const Home: FC<HomeProps> = (props) => {
   );
 };
 
-export default Home;
+export { Conectivity };
